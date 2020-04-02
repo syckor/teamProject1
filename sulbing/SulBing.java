@@ -1,4 +1,3 @@
-package sulbing;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -24,8 +23,10 @@ public class SulBing extends JFrame implements ActionListener{
 	JButton order, cancel, add;
 	JButton bestMenu1, bestMenu2, bestMenu3, desertMenu1, desertMenu2, desertMenu3
 			, bingsuMenu1,bingsuMenu2,bingsuMenu3, beverageMenu1, beverageMenu2, beverageMenu3;
-	
-	
+	int price1000 = 1000;
+	int price3000= 3000;
+	int price5000 = 5000;
+	int totalPrice;
 
 	SulBing() {
 		//객체 생성
@@ -161,6 +162,7 @@ public class SulBing extends JFrame implements ActionListener{
 	}
 
 	
+	
 	public void actionPerformed(ActionEvent e) {
 		JButton evt = (JButton)e.getSource();
 		if (evt == add) {
@@ -175,15 +177,25 @@ public class SulBing extends JFrame implements ActionListener{
 			if(i == 0) {
 				JOptionPane.showConfirmDialog(null, "주문 완료");	
 			}			
-		}else if (evt == bestMenu1) {
+		}
+		if (evt == bestMenu1) {
+			totalPrice += price1000;
 			tf.insert("\n딸기초코러블리설빙 ",1);
-			 
+			
+			tf2.setText(null);
+			tf2.insert(String.valueOf((totalPrice)),1);
 		}else if (evt == bestMenu2) {
+			totalPrice += price1000;
 			tf.insert("\n한딸기치즈케이크설빙 ",1);
+			tf2.setText(null);
+			tf2.insert(String.valueOf((totalPrice)),1);
 		}else if (evt == bestMenu3) {
+			totalPrice += price1000;
 			tf.insert("\n불고기피자 ",1);
+			tf2.setText(null);
+			tf2.insert(String.valueOf((totalPrice)),1);
 		}	
-		
+	
 		
 		
 	}
