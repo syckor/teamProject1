@@ -2,6 +2,7 @@ package sulbing;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -26,18 +27,14 @@ public class SulBing extends JFrame implements ActionListener {
 	
 	JLabel laname, lamany, laprice;
 	JTextField tf;
-	JList list_name, list_many, list_totalPrice;
+	JList list_name, list_many, list_Price;
 	JButton order, cancel;
 	JButton[] menu = new JButton[12];
 	String[] me = { "딸기초코러블리설빙", "한딸기치즈설빙", "불고기피자", "생딸기복숭아설빙", "민트초코설빙", "딸기마카롱설빙", "생딸기와플", "생딸기찹쌀떡", "달콤퐁당꿀떡",
 			"흑당스노우밀크티", "초코밀크티", "딸기피치우롱블렌드티" };
-	// JButton bestMenu1, bestMenu2, bestMenu3, desertMenu1, desertMenu2,
-	// desertMenu3
-	// , bingsuMenu1,bingsuMenu2,bingsuMenu3, beverageMenu1, beverageMenu2,
-	// beverageMenu3;
-	int price1000 = 1000;
-	int price3000 = 3000;
-	int price5000 = 5000;
+	
+	int price[] = {3000,4000,5000};
+	
 	int totalPrice;
 	int howMany[] = new int[12];
 	
@@ -48,11 +45,17 @@ public class SulBing extends JFrame implements ActionListener {
 		
 		list_name = new JList(new DefaultListModel());
 		list_many = new JList(new DefaultListModel());
-		list_totalPrice = new JList(new DefaultListModel());
+		list_Price = new JList(new DefaultListModel());
+		
+		list_name.setPreferredSize(new Dimension(120, 10));
+		
+		
 		
 		laname = new JLabel("메뉴");
 		lamany = new JLabel("수량");
 		laprice = new JLabel("가격");
+		
+		laname.setSize(120, 10);
 		
 		order = new JButton("주문");
 		cancel = new JButton("취소");
@@ -105,7 +108,7 @@ public class SulBing extends JFrame implements ActionListener {
 		p2.setLayout(new GridLayout(1,3));
 		p2.add(list_name); 
 		p2.add(list_many);
-		p2.add(list_totalPrice);
+		p2.add(list_Price);
 		//라벨 패널 p3
 		JPanel p3 = new JPanel();
 		p3.setLayout(new GridLayout(1,3));
@@ -120,14 +123,14 @@ public class SulBing extends JFrame implements ActionListener {
 		add(p, BorderLayout.EAST);
 
 	
-		setSize(1200, 800);
+		setSize(800, 600);
 		setVisible(true);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
 	}
 
-	String show;
 
+	
 	public void actionPerformed(ActionEvent e) {
 		JButton evt = (JButton) e.getSource();
 
@@ -138,12 +141,11 @@ public class SulBing extends JFrame implements ActionListener {
 			
 			JOptionPane.showMessageDialog(null, "취소하시겠습니까?");
 			tf.setText(null); //JList만 지워지면 해결될 문제
-//			DefaultListModel model = (DefaultListModel) list_name.getModel();
-//			int selectedIndex = list_name.getSelectedIndex();
-//			if (selectedIndex != -1) {
-//			       model.remove(selectedIndex);
-//			}                                             // 이거 쓰면 list_name을 지울 수 있지만 list_many와  list_price를 못지움
-
+			DefaultListModel model = (DefaultListModel) list_name.getModel();
+			int selectedIndex = list_name.getSelectedIndex();
+			if (selectedIndex != -1) {
+			       model.remove(selectedIndex);
+		}                                             
 
 		}
 		
@@ -153,17 +155,27 @@ public class SulBing extends JFrame implements ActionListener {
 		DefaultListModel model3 = new DefaultListModel();
 		model1 = (DefaultListModel)list_name.getModel();
 		model2 = (DefaultListModel)list_many.getModel();
-		model3 = (DefaultListModel)list_totalPrice.getModel();
+		model3 = (DefaultListModel)list_Price.getModel();
 		
 		
 		for (int i = 0; i < 12; i++) { //의지의 한국인
 			if (menu[i] == evt) {
-				
-				totalPrice += price1000;
+				if(i == 0 | i ==3 | i ==6 | i ==9) {
+					totalPrice += price[0];
+					model3.addElement(price[0]);
+				}
+				else if(i == 1 | i ==4 | i ==7 | i ==10) {
+					totalPrice += price[1];
+					model3.addElement(price[1]);
+				}
+				else if (i ==2| i== 5 | i == 8 | i== 11) {
+					totalPrice += price[2];
+					model3.addElement(price[2]);
+				}
 				howMany[i]++;
 				model1.addElement(me[i]);
 				model2.addElement(howMany[i]);
-				model3.addElement(price1000);
+				
 				
 			}
 			
